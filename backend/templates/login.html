@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Login</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="navbar">
+
+        <div class="logo">
+            Notes App
+        </div>
+
+    </div>
+
+    <div class="form-container">
+
+        <h1>Login</h1>
+
+        <form method="POST">
+
+            <input type="text"
+                   name="username"
+                   placeholder="Enter Username">
+
+            <input type="password"
+                   name="password"
+                   placeholder="Enter Password">
+
+            <button type="submit">
+                Login
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+</html> 

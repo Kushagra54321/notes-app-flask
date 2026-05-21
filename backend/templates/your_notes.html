@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Your Notes</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="navbar">
+
+        <div class="logo">
+            Your Notes
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/notes">
+                <button>Add Notes</button>
+            </a>
+
+            <a href="/logout">
+                <button>Logout</button>
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="notes-container">
+
+        {% for note in notes %}
+
+        <div class="note-card">
+
+            <h3>{{ note[1] }}</h3>
+
+            <p>{{ note[2] }}</p>
+
+            <a href="/edit/{{ note[0] }}">
+
+                <button class="edit-btn">
+
+                    Edit
+
+                </button>
+
+            </a>
+
+            <a href="/delete/{{ note[0] }}">
+
+                <button class="delete-btn">
+
+                    Delete
+
+                </button>
+
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</body>
+
+</html> 

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Notes App</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="navbar">
+
+        <div class="logo">
+            Notes App
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/your-notes">
+                <button>Your Notes</button>
+            </a>
+
+            <a href="/logout">
+                <button>Logout</button>
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="form-container">
+
+        <h1>Add Notes</h1>
+
+        <form method="POST">
+
+            <input type="text"
+                   name="title"
+                   placeholder="Enter Note Title">
+
+            <textarea name="content"
+                      placeholder="Write your note"></textarea>
+
+            <button type="submit">
+                Add Note
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html> 
