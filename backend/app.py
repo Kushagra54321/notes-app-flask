@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect, session
+import time 
 import mysql.connector
+time.sleep(10)
 
 # NEW IMPORTS
 from dotenv import load_dotenv
