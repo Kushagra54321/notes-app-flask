@@ -1,0 +1,37 @@
+version: '3.9'
+services:
+    flask_app:
+
+        build: .
+        
+        ports:
+            - "5000:5000"
+
+        environment:
+          DB_HOST: mysql-db
+          DB-USER: root
+          DB-PASSWORD: #@Kushmysql01@#
+          DB-NAME: notes_app
+          SECRET-KEY: mysecretkey
+
+        depends_on:
+            - mysql-db
+        
+    mysql-db:
+        image: mysql:8.0
+
+        restart: always
+
+        environment:
+            MYSQL_ROOT_PASSWORD: #@Kushmysql01@#
+            MYSQL_DATABASE: notes_app
+
+        ports:
+            - "3307:3306"
+
+        volumes:
+            mysql-data:var/lib/mysql
+volumes:
+
+    mysql-data:
+        
