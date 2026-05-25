@@ -22,7 +22,7 @@ spec:
       containers:
         - name: flask-container
           image: notes_web_app-flask-app:latest
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
 
           ports:
             - containerPort: 5000
