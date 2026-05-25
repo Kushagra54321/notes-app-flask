@@ -76,6 +76,6 @@ python app.py
 Open `http://127.0.0.1:5000/` in your browser.
 
 ## Notes
-
+web notes app
 - The home page background image is loaded from `backend/static/background_image.png`.
 - If the background does not appear, try refreshing your browser cache (`Ctrl+F5`).
