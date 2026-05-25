@@ -24,5 +24,9 @@ spec:
           image: notes_web_app-flask-app:latest
           imagePullPolicy: IfNotPresent
 
+          env:
+            - name: DB_HOST
+              value: "mysql-db"
+
           ports:
             - containerPort: 5000
