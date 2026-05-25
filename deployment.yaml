@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: flask-container
-          image: notes_web_app-flask-app
+          image: notes_web_app-flask-app:latest
           imagePullPolicy: Never
 
           ports:
