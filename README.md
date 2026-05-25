@@ -3,7 +3,7 @@
 (IN this app , i am adding many tools to learn how they work)
 
 A simple Flask-based notes application with user signup/login, note creation, editing, and deletion.
-webhook test
+
 ## Project Structure
 
 - `backend/`
