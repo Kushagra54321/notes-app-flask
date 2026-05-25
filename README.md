@@ -4,7 +4,7 @@
 
 A simple Flask-based notes application with user signup/login, note creation, editing, and deletion.
 
-kubernetes integrate with jenkins
+kubernetes integrate with jenkins , we have to fix them 
 ## Project Structure
 
 - `backend/`
