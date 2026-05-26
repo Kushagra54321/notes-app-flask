@@ -33,6 +33,8 @@ spec:
                 secretKeyRef:
                   name: mysql-secret
                   key: MYSQL_ROOT_PASSWORD
+            - name: DB_NAME
+              value: "notes_app"
 
           ports:
             - containerPort: 5000
