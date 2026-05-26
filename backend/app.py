@@ -218,5 +218,5 @@ def edit_note(id):
 
 
 # ================= RUN APP =================
-
+print("New Version Running 😎")
 app.run(host="0.0.0.0", port=5000)
