@@ -92,6 +92,18 @@ body > * {
     animation: fadeIn 1.5s ease;
 }
 
+.main-container h2{
+    font-size: 36px;
+
+    margin-bottom: 20px;
+
+    color: #ffdd57;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
 .main-container p{
     font-size: 22px;
 
