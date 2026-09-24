@@ -18,16 +18,16 @@ app.secret_key = os.getenv("SECRET_KEY")
 
 # ================= DATABASE CONNECTION =================
 
+db_host = os.getenv("DB_HOST", "127.0.0.1")
+if os.name == "nt" and db_host == "mysql-db":
+    db_host = "127.0.0.1"
+
 db = mysql.connector.connect(
-
-    host=os.getenv("DB_HOST"),
-
+    host=db_host,
+    port=int(os.getenv("DB_PORT", 3307 if os.name == "nt" else 3306)),
     user=os.getenv("DB_USER"),
-
     password=os.getenv("DB_PASSWORD"),
-
     database=os.getenv("DB_NAME")
-
 )
 
 cursor = db.cursor()
