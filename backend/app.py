@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, session
-import time 
 import mysql.connector
-time.sleep(10)
+from mysql.connector import pooling
 
 # NEW IMPORTS
 from dotenv import load_dotenv
@@ -18,19 +17,16 @@ app.secret_key = os.getenv("SECRET_KEY")
 
 # ================= DATABASE CONNECTION =================
 
-db_host = os.getenv("DB_HOST", "127.0.0.1")
-if os.name == "nt" and db_host == "mysql-db":
-    db_host = "127.0.0.1"
-
-db = mysql.connector.connect(
-    host=db_host,
-    port=int(os.getenv("DB_PORT", 3307 if os.name == "nt" else 3306)),
-    user=os.getenv("DB_USER"),
-    password=os.getenv("DB_PASSWORD"),
-    database=os.getenv("DB_NAME")
-)
-
-cursor = db.cursor()
+def get_db():
+    """Get a fresh DB connection on every call — works reliably on Render."""
+    return mysql.connector.connect(
+        host=os.getenv("DB_HOST", "127.0.0.1"),
+        port=int(os.getenv("DB_PORT", 3306)),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+        database=os.getenv("DB_NAME"),
+        ssl_disabled=os.getenv("DB_SSL_DISABLED", "false").lower() == "true"
+    )
 
 
 # ================= HOME PAGE =================
@@ -56,9 +52,12 @@ def signup():
 
         val = (username, password)
 
+        db = get_db()
+        cursor = db.cursor()
         cursor.execute(sql, val)
-
         db.commit()
+        cursor.close()
+        db.close()
 
         return redirect("/login")
 
@@ -80,9 +79,12 @@ def login():
 
         val = (username, password)
 
+        db = get_db()
+        cursor = db.cursor()
         cursor.execute(sql, val)
-
         user = cursor.fetchone()
+        cursor.close()
+        db.close()
 
         if user:
 
@@ -130,9 +132,12 @@ def notes():
 
         val = (title, content, session["user_id"])
 
+        db = get_db()
+        cursor = db.cursor()
         cursor.execute(sql, val)
-
         db.commit()
+        cursor.close()
+        db.close()
 
     return render_template("index.html")
 
@@ -150,9 +155,12 @@ def your_notes():
 
     val = (session["user_id"],)
 
+    db = get_db()
+    cursor = db.cursor()
     cursor.execute(sql, val)
-
     all_notes = cursor.fetchall()
+    cursor.close()
+    db.close()
 
     return render_template("your_notes.html", notes=all_notes)
 
@@ -170,9 +178,12 @@ def delete_note(id):
 
     val = (id,)
 
+    db = get_db()
+    cursor = db.cursor()
     cursor.execute(sql, val)
-
     db.commit()
+    cursor.close()
+    db.close()
 
     return redirect("/your-notes")
 
@@ -185,6 +196,9 @@ def edit_note(id):
     if "user_id" not in session:
 
         return redirect("/login")
+
+    db = get_db()
+    cursor = db.cursor()
 
     if request.method == "POST":
 
@@ -201,8 +215,9 @@ def edit_note(id):
         val = (title, content, id)
 
         cursor.execute(sql, val)
-
         db.commit()
+        cursor.close()
+        db.close()
 
         return redirect("/your-notes")
 
@@ -211,12 +226,13 @@ def edit_note(id):
     val = (id,)
 
     cursor.execute(sql, val)
-
     note = cursor.fetchone()
+    cursor.close()
+    db.close()
 
     return render_template("edit_note.html", note=note)
 
 
 # ================= RUN APP =================
-print("New Version Running 😎")
-app.run(host="0.0.0.0", port=5000)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5000)))
